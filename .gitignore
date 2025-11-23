@@ -1,0 +1,46 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+
+# Logs
+*.log
+
+# Flask instance folder (ak používaš)
+instance/
+
+# PyCharm / IDE
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Coverage / test reports
+htmlcov/
+.coverage
+.tox/
+.nox/
+pytest_cache/
+
+# SQLite database (ak používaš lokálne)
+*.db
+*.sqlite3
+
+# Node / frontend (ak používaš npm/yarn)
+node_modules/
+dist/
+build/
