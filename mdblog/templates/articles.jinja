@@ -3,9 +3,12 @@
 {% block title %} Welcome to Markdown blog {% endblock %}
 
 {%  block main %}
+    {% if "logged" in session %}
+        <a href="{{ url_for("view_add_article") }}">add_new_article</a>
+    {% endif %}
     {% if articles %}
         <ul>
-        {% for id, article in articles %}
+        {% for article in articles %}
             <li>
                 <h2><a href="{{ url_for("view_article", art_id=article.id) }}" >{{ article.title }}</a></h2>
                 <p> {{ article.content | truncate(100) }}</p>

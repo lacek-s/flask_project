@@ -1,19 +1,23 @@
 {% extends "_main.jinja" %}
 
-{% block title %} Login {% endblock %}
+{% block title %} New article {% endblock %}
 
 {%  block main %}
 
-    <form action="{{ url_for("login_user") }}" method="post">
-        {{ form.csrf_token }}
-        <p>
-            {{ form.username.label }}
-            {{ form.username () }}
-        </p>
-        <p>
-            {{ form.password.label }}
-            {{ form.password () }}
-        </p>
-        <input type="submit" value="login">
-    </form>
+{% if article %}
+<form action="{{ url_for("edit_article", art_id=article.id) }}" method="post">
+{% else %}
+<form action="{{ url_for("add_article") }}" method="post">
+{% endif %}
+    {{ form.csrf_token }}
+    <p>
+        {{ form.title.label }}
+        {{ form.title() }}
+    </p>
+    <p>
+        {{ form.content.label }}
+        {{ form.content() }}
+    </p>
+    <input type="submit" value="save">
+</form>
 {% endblock %}
