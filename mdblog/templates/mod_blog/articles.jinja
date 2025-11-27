@@ -2,20 +2,55 @@
 
 {% block title %} Welcome to Markdown blog {% endblock %}
 
-{%  block main %}
+{% block main %}
     {% if "logged" in session %}
-        <a href="{{ url_for("admin.view_add_article") }}">add_new_article</a>
+        <a href="{{ url_for('admin.view_add_article') }}">Add New Article</a>
     {% endif %}
+
     {% if articles %}
         <ul>
         {% for article in articles %}
             <li>
-                <h2><a href="{{ url_for("blog.view_article", art_id=article.id) }}" >{{ article.title }}</a></h2>
-                <p> {{ article.content | truncate(100) }}</p>
-        </li>
+                <h2>
+                    <a href="{{ url_for('blog.view_article', art_id=article.id) }}">
+                        {{ article.title }}
+                    </a>
+                </h2>
+                <p>{{ article.content | truncate(100) }}</p>
+            </li>
         {% endfor %}
         </ul>
+
+        <!-- Paginácia -->
+        <ul class="paginate">
+            {% if paginate.has_prev %}
+                <li>
+                    <a href="{{ url_for('blog.view_articles', page=paginate.prev_num) }}">Prev</a>
+                </li>
+            {% endif %}
+
+            {% for page in paginate.iter_pages() %}
+                {% if page %}
+                    {% if page != paginate.page %}
+                        <li>
+                            <a href="{{ url_for('blog.view_articles', page=page) }}">{{ page }}</a>
+                        </li>
+                    {% else %}
+                        <li class="active">{{ page }}</li>
+                    {% endif %}
+                {% else %}
+                    <li>…</li>
+                {% endif %}
+            {% endfor %}
+
+            {% if paginate.has_next %}
+                <li>
+                    <a href="{{ url_for('blog.view_articles', page=paginate.next_num) }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+
     {% else %}
-        <p> No Articles :( </p>
+        <p>No Articles :(</p>
     {% endif %}
 {% endblock %}
